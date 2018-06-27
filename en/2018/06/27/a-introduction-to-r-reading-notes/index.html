@@ -1,0 +1,457 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Mondo Gao"><title>A Introduction to R Reading Notes · 麦冬</title><meta name="description" content="1 Introduction and preliminaries
+Exit repl: q()
+
+Help
+help(solve) || ?solve || help(&amp;quot;[[&amp;quot;)
+Lanuch help: help.start()
+help.search() || `??solv"><meta name="keywords"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><h3 title=""><a href="/">麦冬</a></h3><div class="description"><p>前端、杂谈、设计、艺术。</p></div></div></div><ul class="social-links"><li><a href="mailto:mondogao@gmail.com?Subject=Let's be friends!"><i class="fa fa-envelope"></i></a></li><li><a href="http://weibo.com/MondoGao"><i class="fa fa-weibo"></i></a></li><li><a href="https://twitter.com/mondo_gao"><i class="fa fa-twitter"></i></a></li><li><a href="http://facebook.com/MondoGao"><i class="fa fa-facebook"></i></a></li><li><a href="http://instagram.com/mondogao"><i class="fa fa-instagram"></i></a></li><li><a href="http://github.com/mondogao"><i class="fa fa-github"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><div class="by_farbox"><a href="https://hexo.io/" target="_blank">Powered by Hexo</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/archives">Archive</a></li><li><a href="/links">Links</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="https://www.gravatar.com/avatar/ef6553e3101c4dd8130672b2332a7472"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>A Introduction to R Reading Notes</a></h3></div><div class="post-content"><h2 id="1-Introduction-and-preliminaries"><a href="#1-Introduction-and-preliminaries" class="headerlink" title="1 Introduction and preliminaries"></a>1 Introduction and preliminaries</h2><ul>
+<li>Exit repl: <code>q()</code></li>
+</ul>
+<h3 id="Help"><a href="#Help" class="headerlink" title="Help"></a>Help</h3><ul>
+<li><code>help(solve)</code> || <code>?solve</code> || <code>help(&quot;[[&quot;)</code></li>
+<li>Lanuch help: <code>help.start()</code></li>
+<li><code>help.search()</code> || `??solve``</li>
+<li><code>example(topic)</code></li>
+</ul>
+<h3 id="Basic-commands"><a href="#Basic-commands" class="headerlink" title="Basic commands"></a>Basic commands</h3><ul>
+<li>Elementary commands: <strong>expressions</strong> &amp; <strong>assignments</strong></li>
+<li>Commands are separated by <code>;</code> or newline. Commands can be grouped by <code>{ }</code>. Comments start with <code>#</code>.</li>
+<li>Executing file: <code>source(&quot;&lt;file&gt;&quot;)</code></li>
+<li>output to file: <code>sink(&quot;&lt;file&gt;&quot;)</code>, restore: <code>sink()</code></li>
+</ul>
+<h3 id="Data-permanency"><a href="#Data-permanency" class="headerlink" title="Data permanency"></a>Data permanency</h3><p>The entities that R creates and manipulates are <strong>objects</strong>.</p>
+<p>Use <code>objects()</code> or <code>ls()</code> to list. The collection of objects currently stored is called the <strong>workspace</strong>.</p>
+<p>Use <code>rm()</code> to remove.</p>
+<p>Objects are stored in <code>.RData</code>, historys are stored in <code>.Rhistory</code>.</p>
+<h2 id="2-Simple-manipulations-numbers-and-vectors"><a href="#2-Simple-manipulations-numbers-and-vectors" class="headerlink" title="2 Simple manipulations; numbers and vectors"></a>2 Simple manipulations; numbers and vectors</h2><h3 id="Vectors-and-assignment"><a href="#Vectors-and-assignment" class="headerlink" title="Vectors and assignment"></a>Vectors and assignment</h3><p><strong>vector</strong>: a ordered array of numbers.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># an assignment useing the function c()</span></span><br><span class="line">x &lt;- c(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">c(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>) -&gt; x</span><br><span class="line">assign(<span class="string">"x"</span>, c(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<p>In most contexts the <code>=</code> operator can be used as an alternative to <code>&lt;-</code>.</p>
+<p>If an expression is used as a complete command, the value is preinted and <strong>lost</strong>.</p>
+<h3 id="Vector-arithmetic"><a href="#Vector-arithmetic" class="headerlink" title="Vector arithmetic"></a>Vector arithmetic</h3><p>Shorter vectors are <strong>recycled</strong> when occurring in the same expression. In particular a constant is simply repeated.</p>
+<ul>
+<li>operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code></li>
+<li><p>functions</p>
+<ul>
+<li><code>log</code>, <code>exp</code>, <code>sin</code>, <code>cos</code>, <code>tan</code>, <code>sqrt</code></li>
+<li><p><code>max</code> &amp; <code>min</code></p>
+<p>select in all their arguments, use <code>pmax</code> to select parallel.</p>
+</li>
+<li><p><code>length</code></p>
+</li>
+<li><code>sum</code> &amp; <code>prod</code></li>
+<li><code>mean</code>, <code>var</code></li>
+<li><code>sort</code>, <code>order</code>, <code>sort.list</code></li>
+</ul>
+</li>
+</ul>
+<p>To work with complex numbers, supply an explicit complex part: <code>sqrt(-17+0i)</code></p>
+<h3 id="Generating-regular-sequences"><a href="#Generating-regular-sequences" class="headerlink" title="Generating regular sequences"></a>Generating regular sequences</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>:<span class="number">10</span></span><br><span class="line">c(<span class="number">1</span>,<span class="number">2</span>,...10)</span><br><span class="line">seq(<span class="number">1</span>,<span class="number">10</span>)</span><br><span class="line">seq(from=<span class="number">1</span>, to=<span class="number">10</span>, by=<span class="number">1</span>, length=<span class="number">10</span>, along)</span><br></pre></td></tr></table></figure>
+<p>Arguments can be given in named form and mixing with normal form</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># replicate an object</span></span><br><span class="line">rep(<span class="number">1</span>, times=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Logical-vectors"><a href="#Logical-vectors" class="headerlink" title="Logical vectors"></a>Logical vectors</h3><p>Values: <code>TRUE</code>, <code>FALSE</code>, <code>NA</code> (not available)</p>
+<p>Operators: <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>==</code>, <code>!=</code></p>
+<p>Logical operators: <code>&amp;</code> (and), <code>|</code> (or)</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp &lt;- x &gt; <span class="number">13</span></span><br></pre></td></tr></table></figure>
+<p>In ordinary arithmetic, <code>TRUE</code> are coerced <code>1</code>, <code>FALSE</code> becomes <code>0</code>.</p>
+<h3 id="Missing-values"><a href="#Missing-values" class="headerlink" title="Missing values"></a>Missing values</h3><ul>
+<li><code>is.na(x)</code>: compare elements with <code>NA</code> &amp; <code>NaN</code> and return a new logical vector</li>
+</ul>
+<p><code>x == NA</code> is different from <code>is.na(x)</code>, former one will compare the <code>x</code> itself with <code>NA</code>.</p>
+<p><code>NaN</code> (not a number) values:<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>/<span class="number">0</span> <span class="comment"># NaN</span></span><br><span class="line"><span class="literal">Inf</span> - <span class="literal">Inf</span> <span class="comment"># NaN</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Character-vectors"><a href="#Character-vectors" class="headerlink" title="Character vectors"></a>Character vectors</h3><p>Character strings are entered using <code>&quot;</code> or <code>&#39;</code>. Escaping uses <code>\</code>. </p>
+<ul>
+<li><p><code>?Quotes</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># concatenates arguments one by one into character strings</span></span><br><span class="line">paste(c(<span class="string">"x"</span>, <span class="string">"y"</span>), <span class="number">1</span>:<span class="number">6</span>, sep=<span class="string">" "</span>) <span class="comment">#&gt; c("x1", "y2", "x3",...)</span></span><br><span class="line"><span class="comment"># paster(..., collapses=&lt;str&gt;) join arguments into a single string.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Index-vectors-selecting-and-modifying-subsets-of-a-data-set"><a href="#Index-vectors-selecting-and-modifying-subsets-of-a-data-set" class="headerlink" title="Index vectors; selecting and modifying subsets of a data set"></a>Index vectors; selecting and modifying subsets of a data set</h3><p>Index can be:</p>
+<ol>
+<li>Logical vector: work like a filter</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &lt;- c(<span class="number">1</span>:<span class="number">3</span>, <span class="literal">NA</span>)</span><br><span class="line">x[!is.na(x) &amp; x&gt;<span class="number">0</span>] <span class="comment">#&gt; c(1,2,3)</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>A vector of positive integral quantities</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x[<span class="number">1</span>:<span class="number">10</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>A vector of negative integral quantities: specifies the values to be <strong>excluded</strong></p>
+</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x[-(<span class="number">1</span>:<span class="number">5</span>)] <span class="comment"># gives all but the first five</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>A vector of character strings: applied where an object has a <strong>names</strong> attribute:<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fruit &lt;- c(<span class="number">5</span>, <span class="number">10</span>, <span class="number">1</span>)</span><br><span class="line">names(fruit) &lt;- c(<span class="string">"orange"</span>, <span class="string">"banana"</span>, <span class="string">"apple"</span>)</span><br><span class="line">fruit[c(<span class="string">"apple"</span>, <span class="string">"orange"</span>)]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>An indexed expression can also appear on the rhs of a vector, when the assignment is performed only on those eles of the vector.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># same</span></span><br><span class="line">y[y &lt; <span class="number">0</span>] &lt;- -y[y &lt; <span class="number">0</span>]</span><br><span class="line">y &lt;- abs(y)</span><br></pre></td></tr></table></figure>
+<h3 id="Other-types-of-objects"><a href="#Other-types-of-objects" class="headerlink" title="Other types of objects"></a>Other types of objects</h3><ul>
+<li><strong>matrices</strong></li>
+<li><strong>factors</strong></li>
+<li><strong>lists</strong>: a vector whose eles needn’t be of the same type</li>
+<li><strong>data frames</strong>: matrix-like</li>
+<li><strong>functions</strong></li>
+</ul>
+<h2 id="3-Objects-their-modes-and-attributes"><a href="#3-Objects-their-modes-and-attributes" class="headerlink" title="3 Objects, their modes and attributes"></a>3 Objects, their modes and attributes</h2><ul>
+<li>Intrinsic attributes: mode and length</li>
+</ul>
+<p>Type, or <strong>mode</strong>, namely <em>numeric</em>, <em>complex</em>, <em>logical</em>, <em>caharacter</em> and <em>raw</em>.</p>
+<p>Use <code>mode(object)</code>, <code>length(object)</code>, <code>attributes(object)</code> to examine.</p>
+<ul>
+<li>Changing the length of an object</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">e &lt;- numeric()</span><br><span class="line">e[<span class="number">3</span>] &lt;- <span class="number">17</span> <span class="comment"># length to 3</span></span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">length(e) &lt;- <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Getting and setting attributes</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># attr(object, name)</span></span><br><span class="line">attr(z, <span class="string">"dim"</span>) &lt;- c(<span class="number">10</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>The class of an object</p>
+<p>All objects in R have a <em>class</em>, for simple vectors this is <em>mode</em>, but “matrix, “ array” are other possible values.</p>
+<ul>
+<li><code>class()</code></li>
+<li><code>unclass()</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Ordered-and-unordered-factors"><a href="#4-Ordered-and-unordered-factors" class="headerlink" title="4 Ordered and unordered factors"></a>4 Ordered and unordered factors</h2><p>A factor of a vector is a group of unique elements.</p>
+<ul>
+<li>Use <code>factor(&lt;vector&gt;)</code> to create a factor.</li>
+<li>A <em>factor</em> has a <em>class</em> attr containing all unique eles.</li>
+<li><p>Use <code>tapply(&lt;values&gt;, &lt;levels&gt;, &lt;func&gt;)</code> to apply function to each levels.</p>
+<p><code>tapply</code> can be used to handle complicated indexing of a vector by multiple categories.</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">state &lt;- c(<span class="string">"tas"</span>, <span class="string">"sa"</span>, <span class="string">"qld"</span>, <span class="string">"nsw"</span>, <span class="string">"nsw"</span>, <span class="string">"nt"</span>, <span class="string">"wa"</span>, <span class="string">"wa"</span>, <span class="string">"qld"</span>, <span class="string">"vic"</span>, <span class="string">"nsw"</span>, <span class="string">"vic"</span>, <span class="string">"qld"</span>, <span class="string">"qld"</span>, <span class="string">"sa"</span>, <span class="string">"tas"</span>, <span class="string">"sa"</span>, <span class="string">"nt"</span>, <span class="string">"wa"</span>, <span class="string">"vic"</span>, <span class="string">"qld"</span>, <span class="string">"nsw"</span>, <span class="string">"nsw"</span>, <span class="string">"wa"</span>, <span class="string">"sa"</span>, <span class="string">"act"</span>, <span class="string">"nsw"</span>, <span class="string">"vic"</span>, <span class="string">"vic"</span>, <span class="string">"act"</span>)</span><br><span class="line">statef &lt;- factor(state)</span><br><span class="line">incomes &lt;- c(<span class="number">60</span>, <span class="number">49</span>, <span class="number">40</span>, <span class="number">61</span>, <span class="number">64</span>, <span class="number">60</span>, <span class="number">59</span>, <span class="number">54</span>, <span class="number">62</span>, <span class="number">69</span>, <span class="number">70</span>, <span class="number">42</span>, <span class="number">56</span>, <span class="number">61</span>, <span class="number">61</span>, <span class="number">61</span>, <span class="number">58</span>, <span class="number">51</span>, <span class="number">48</span>, <span class="number">65</span>, <span class="number">49</span>, <span class="number">49</span>, <span class="number">41</span>, <span class="number">48</span>, <span class="number">52</span>, <span class="number">46</span>, <span class="number">59</span>, <span class="number">46</span>, <span class="number">58</span>, <span class="number">43</span>)</span><br><span class="line">tapply(incomes, statef, mean)</span><br></pre></td></tr></table></figure>
+<p>The <code>ordered()</code> creates ordered factors but is otherwise identical to <code>factor</code>.</p>
+<h2 id="5-Arrays-and-matrices"><a href="#5-Arrays-and-matrices" class="headerlink" title="5 Arrays and matrices"></a>5 Arrays and matrices</h2><p>A vector can be an array only if it has a dimension vector as its <em>dim</em> attr:</p>
+<ul>
+<li><em>dimension vector</em>: a vector of non-negative integers.</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dim(z) &lt;- c(<span class="number">3</span>,<span class="number">5</span>,<span class="number">100</span>)</span><br><span class="line">z[<span class="number">3</span>,<span class="number">5</span>,<span class="number">99</span>]</span><br><span class="line">z[,<span class="number">5</span>,<span class="number">99</span>] <span class="comment">#&gt; c(z[1,5,99], z[2,5,99], z[3,5,99])</span></span><br></pre></td></tr></table></figure>
+<p>Matrices are two dimension arrays.</p>
+<p>If any index position is given an empty index vector, then the full range of that subscript is taken:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[<span class="number">2</span>,,]</span><br></pre></td></tr></table></figure>
+<h3 id="Index-matrices"><a href="#Index-matrices" class="headerlink" title="Index matrices"></a>Index matrices</h3><p>Use a matrice in index to extract an irregular collection as a vector.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x &lt;- array(<span class="number">1</span>:<span class="number">20</span>, dim=c(<span class="number">4</span>,<span class="number">5</span>))</span><br><span class="line">i &lt;- array(c(<span class="number">1</span>:<span class="number">3</span>, <span class="number">3</span>:<span class="number">1</span>), dim=c(<span class="number">3</span>,<span class="number">2</span>))</span><br><span class="line">x[i] <span class="comment">#&gt; 9,6,3</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Negative indeices are not allowd in index matrices.</li>
+<li>Rows containing <code>NA</code> produce <code>NA</code>.</li>
+<li>Rows containing a zero is ignored.</li>
+<li><code>cbind</code></li>
+<li><code>table</code></li>
+</ul>
+<h3 id="array"><a href="#array" class="headerlink" title="array()"></a><code>array()</code></h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array(&lt;dataVector&gt;, &lt;dimVector&gt;)</span><br></pre></td></tr></table></figure>
+<h3 id="Mixed-vector-and-array-arithmetic-The-recycling-rule"><a href="#Mixed-vector-and-array-arithmetic-The-recycling-rule" class="headerlink" title="Mixed vector and array arithmetic. The recycling rule"></a>Mixed vector and array arithmetic. The recycling rule</h3><ul>
+<li>The expression is scanned from left to right.</li>
+<li>Any short vector operands are extended by cetycling their values until they match the size of any other operands.</li>
+<li>As long as short vectors and arrays only are encountered, the arrays must all have the same <code>dim</code> attribute or an error results.</li>
+<li>Any vector operand longer than a matrix or array operand generates an error.</li>
+<li>If array structures are present and no error or coercion to vector has been precipitated, the result is an array structure with the common <code>dim</code> attribute of its array operands.</li>
+</ul>
+<h3 id="The-outer-product-of-two-arrays"><a href="#The-outer-product-of-two-arrays" class="headerlink" title="The outer product of two arrays"></a>The outer product of two arrays</h3><p>The result’s dimentsion of a outer product is obatined by concatenating their two dimension, and whose data vector is got by forming all possible products of a with those of b.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ab &lt;- a %o% b</span><br><span class="line"><span class="comment"># Do function(product) to all a, b's combination.</span></span><br><span class="line">ab &lt;- outer(a,b,<span class="string">"*"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Generalied-transpose-of-an-array"><a href="#Generalied-transpose-of-an-array" class="headerlink" title="Generalied transpose of an array"></a>Generalied transpose of an array</h3><ul>
+<li><code>aperm(a, perm)</code>: Switch dimension in a. Used to permute an array.</li>
+<li><code>t(a)</code> &amp; <code>aperm(a, c(2,1))</code>: transpose an array.</li>
+</ul>
+<h3 id="Matrix-facilities"><a href="#Matrix-facilities" class="headerlink" title="Matrix facilities"></a>Matrix facilities</h3><ul>
+<li><code>t(X)</code> is hte matrix transpose function</li>
+<li><code>nrow(A)</code> &amp; <code>ncol(A)</code></li>
+</ul>
+<h4 id="Multiplication"><a href="#Multiplication" class="headerlink" title="Multiplication"></a>Multiplication</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A * B <span class="comment">#&gt; matrix of product of each slot</span></span><br><span class="line">A %*% B <span class="comment">#&gt; matrix product</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>crossprod(X, y)</code> is the same as <code>t(X) %*% y</code></li>
+<li><code>diag(v)</code><ul>
+<li>When v is a vector, gives a diagonal matrix.</li>
+<li>When v is a matrix, gives the vector of diagonal entries of v.</li>
+<li>When v is a single value, gives the identity matrix.</li>
+</ul>
+</li>
+</ul>
+<h4 id="Linear-equations-and-inversion"><a href="#Linear-equations-and-inversion" class="headerlink" title="Linear equations and inversion"></a>Linear equations and inversion</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b &lt;- A %*% x</span><br><span class="line">solve(A,b) <span class="comment">#&gt; x #&gt; A^-1 b</span></span><br><span class="line">solve(A) <span class="comment">#&gt; A^-1</span></span><br></pre></td></tr></table></figure>
+<h4 id="Eigenvalues-and-eigenvectors"><a href="#Eigenvalues-and-eigenvectors" class="headerlink" title="Eigenvalues and eigenvectors"></a>Eigenvalues and eigenvectors</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># calculates the eigenvalues and eigenvectors of a symmetric matrix</span></span><br><span class="line">ev &lt;- eigen(Sm)</span><br><span class="line">ev$vec</span><br><span class="line">ev$val</span><br></pre></td></tr></table></figure>
+<h4 id="Singular-value-decomposition-and-determinants"><a href="#Singular-value-decomposition-and-determinants" class="headerlink" title="Singular value decomposition and determinants"></a>Singular value decomposition and determinants</h4><ul>
+<li><code>svd(M)</code>: calculates the singular value decomposition of M</li>
+<li><code>prod()</code></li>
+<li><code>absdet()</code></li>
+<li><code>det()</code></li>
+</ul>
+<h4 id="Least-squares-fitting-and-the-QR-decomposition"><a href="#Least-squares-fitting-and-the-QR-decomposition" class="headerlink" title="Least squares fitting and the QR decomposition"></a>Least squares fitting and the QR decomposition</h4><ul>
+<li><code>lsfit()</code>: returns a list giving results of a least squares fitting procedure.</li>
+<li><code>ls.diag()</code></li>
+<li><code>lm(.)</code></li>
+<li><code>qr()</code></li>
+</ul>
+<h3 id="Forming-partitioned-matrices"><a href="#Forming-partitioned-matrices" class="headerlink" title="Forming partitioned matrices"></a>Forming partitioned matrices</h3><ul>
+<li><code>cbind()</code>: form matrices by binding matrices horizontally.</li>
+<li><code>rbind()</code></li>
+</ul>
+<p>They respect <code>dim</code> attribute.</p>
+<p>They are the simplest ways explicitly to allow the vector to be treated as a column or row matrix.</p>
+<h3 id="The-concatenatoin-function-c-with-arrays"><a href="#The-concatenatoin-function-c-with-arrays" class="headerlink" title="The concatenatoin function, c(), with arrays"></a>The concatenatoin function, <code>c()</code>, with arrays</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Corece an array back to a simple vector</span></span><br><span class="line">as.vector()</span><br><span class="line">c(&lt;array&gt;)</span><br></pre></td></tr></table></figure>
+<h3 id="Frequency-tables-from-factors"><a href="#Frequency-tables-from-factors" class="headerlink" title="Frequency tables from factors"></a>Frequency tables from factors</h3><p><code>table</code> allows frequency tables to be calculated from equal length factors.</p>
+<p>Equivalent to <code>tapply(statef, statef, length)</code>.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">incomef &lt;- factor(cut(incomes, breaks = <span class="number">35</span>+<span class="number">10</span>*(<span class="number">0</span>:<span class="number">7</span>))</span><br><span class="line">table(incomef, statef)</span><br></pre></td></tr></table></figure>
+<h2 id="6-Lists-and-data-frames"><a href="#6-Lists-and-data-frames" class="headerlink" title="6 Lists and data frames"></a>6 Lists and data frames</h2><h3 id="Lists"><a href="#Lists" class="headerlink" title="Lists"></a>Lists</h3><p><em>list</em> is an object consisting of an ordered collection of objects knows as its <em>components</em>.</p>
+<p><em>components</em> can be diffirent types and are always <em>numbered</em>.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Lst &lt;- list(name=<span class="string">"Mondo"</span>, bf=<span class="string">"ziyang"</span>, no.children=<span class="number">0</span>, child.ages=c(<span class="number">101</span>))</span><br><span class="line"></span><br><span class="line">List[[<span class="number">1</span>]]</span><br><span class="line"><span class="comment"># same as</span></span><br><span class="line">List$name</span><br><span class="line">List[[<span class="string">"name"</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># name can be a variable</span></span><br><span class="line">x &lt;- <span class="string">"name"</span></span><br><span class="line">List[[x]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># names may be abbreviated</span></span><br><span class="line">List$na</span><br><span class="line"></span><br><span class="line"><span class="comment"># modify</span></span><br><span class="line">List[<span class="number">5</span>] &lt;- list(matrix=Mat)</span><br><span class="line">List$name &lt;- value</span><br></pre></td></tr></table></figure>
+<p><code>[[...]]</code> is used to select a single element, <code>[...]</code> selects a <em>sublist</em> of the <em>list</em>, if list is a named list, the names are transferred to the sublit.</p>
+<h3 id="Data-frames"><a href="#Data-frames" class="headerlink" title="Data frames"></a>Data frames</h3><p>A <em>data frame</em> is a list with class <code>data.frame</code>, may for many purposes be regarded as a matrix with columns possibly of differing modes and attributes.</p>
+<p>Restrictions:</p>
+<ul>
+<li>The components must be vectors, factors, numeric matrices, lists, or other data frames.</li>
+<li>Matrices, lists, and data frames provide as many variables to the new data frame as they have columns, elements, or variables.</li>
+<li>Numeric vectors, logicals and factors are included as is, and by default character vectors are coerced to be factors.</li>
+<li>Vector structures appearing as variables of the data frame must all have the same length, and matrix structures must all have the same row size.</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create</span></span><br><span class="line">accountants &lt;- data.frame(home=statf, loot=incomes, shot=incomef)</span><br><span class="line">read.table() <span class="comment"># read an entire from an external file</span></span><br><span class="line">as.data.frame() <span class="comment"># coerce into a data frame</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># attach an data frame to search path, but remains unchanged</span></span><br><span class="line"><span class="keyword">attach</span>()</span><br><span class="line"><span class="keyword">detach</span>()</span><br></pre></td></tr></table></figure>
+<p>Data frames can use as a workspace.</p>
+<p><code>attach</code> allows not only directories and data frames to be attached, but other classes of object as well.</p>
+<h3 id="Managing-the-search-path"><a href="#Managing-the-search-path" class="headerlink" title="Managing the search path"></a>Managing the search path</h3><ul>
+<li><code>search()</code> shows the current search path.</li>
+<li><code>ls(&lt;search_level&gt;)</code> examine the contents of any position on the search path.</li>
+</ul>
+<h2 id="7-Reading-data-from-files"><a href="#7-Reading-data-from-files" class="headerlink" title="7 Reading data from files"></a>7 Reading data from files</h2><h3 id="read-table"><a href="#read-table" class="headerlink" title="read.table()"></a><code>read.table()</code></h3><p>The external file will normally have a special form:</p>
+<ul>
+<li>The first line of the file should have a <em>name</em> for each variable.</li>
+<li><p>Each additional line has  as its first item a <em>row label</em> and the values for each variable.</p>
+</li>
+<li><p><code>read.table(header=TRUE)</code>: specifies that the first line is a line of headings.</p>
+</li>
+</ul>
+<h3 id="scan"><a href="#scan" class="headerlink" title="scan"></a><code>scan</code></h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The second arg is a dummy list that establishes the mode of the three vectors of data to be read.</span></span><br><span class="line">scan(<span class="string">"input.dat"</span>, list(id=<span class="string">""</span>,<span class="number">0</span>,<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="Accessing-builtin-datasets"><a href="#Accessing-builtin-datasets" class="headerlink" title="Accessing builtin datasets"></a>Accessing builtin datasets</h3><ul>
+<li><code>data()</code>: see the list of builtin datasets.</li>
+<li><code>data(&lt;data_name&gt;[, package=&quot;datasets&quot;])</code>: load datasets.</li>
+</ul>
+<h3 id="Editing-data"><a href="#Editing-data" class="headerlink" title="Editing data"></a>Editing data</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xnew &lt;- edit(xold)</span><br><span class="line"></span><br><span class="line">fix(xold)</span><br><span class="line"><span class="comment"># same as</span></span><br><span class="line">xold &lt;- edit(xold)</span><br><span class="line"></span><br><span class="line"><span class="comment"># enter new data via sheet interface</span></span><br><span class="line">xnew &lt;- edit(data.frame())</span><br></pre></td></tr></table></figure>
+<h2 id="8-Probability-distributions"><a href="#8-Probability-distributions" class="headerlink" title="8 Probability distributions"></a>8 Probability distributions</h2><h3 id="R-as-a-set-of-statistical-tables"><a href="#R-as-a-set-of-statistical-tables" class="headerlink" title="R as a set of statistical tables"></a>R as a set of statistical tables</h3><table>
+<thead>
+<tr>
+<th>Distribution</th>
+<th>R name</th>
+<th>additional arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beta</td>
+<td><code>beta</code></td>
+<td>shape1, shape2, ncp</td>
+</tr>
+<tr>
+<td>binomial</td>
+<td><code>binom</code></td>
+<td>size, prob</td>
+</tr>
+<tr>
+<td>Cauchy</td>
+<td><code>cauchy</code></td>
+<td>location, scale</td>
+</tr>
+<tr>
+<td>chi-squared</td>
+<td><code>chisq</code></td>
+<td>df, ncp</td>
+</tr>
+<tr>
+<td>exponential</td>
+<td><code>exp</code></td>
+<td>rate</td>
+</tr>
+<tr>
+<td>F</td>
+<td><code>f</code></td>
+<td>df1, df2, ncp</td>
+</tr>
+<tr>
+<td>gamma</td>
+<td><code>gamma</code></td>
+<td>shape, scale</td>
+</tr>
+<tr>
+<td>geometric</td>
+<td><code>geom</code></td>
+<td>prob</td>
+</tr>
+<tr>
+<td>hypergeometric</td>
+<td><code>hyper</code></td>
+<td>m, n, k</td>
+</tr>
+<tr>
+<td>log-normal</td>
+<td><code>lnorm</code></td>
+<td>meanlog, sdlog</td>
+</tr>
+<tr>
+<td>logistic</td>
+<td><code>logis</code></td>
+<td>location, scale</td>
+</tr>
+<tr>
+<td>negative binomial</td>
+<td><code>nbinom</code></td>
+<td>size, prob</td>
+</tr>
+<tr>
+<td>normal</td>
+<td><code>norm</code></td>
+<td>mean, sd</td>
+</tr>
+<tr>
+<td>Poisson</td>
+<td><code>pois</code></td>
+<td>lambda</td>
+</tr>
+<tr>
+<td>signed rank</td>
+<td><code>signrank</code></td>
+<td>n</td>
+</tr>
+<tr>
+<td>Student’s t</td>
+<td><code>t</code></td>
+<td>df, ncp</td>
+</tr>
+<tr>
+<td>uniform</td>
+<td><code>unif</code></td>
+<td>min, max</td>
+</tr>
+<tr>
+<td>Weibull</td>
+<td><code>weibull</code></td>
+<td>shape, scale</td>
+</tr>
+<tr>
+<td>Wilcoxon</td>
+<td><code>wilcox</code></td>
+<td>m, n</td>
+</tr>
+</tbody>
+</table>
+<p>Prefix by <code>d</code> for the density, <code>p</code> for the CDF, <code>q</code> for the quantile function, <code>r</code> for simualtion.</p>
+<ul>
+<li><code>ptukey</code> &amp; <code>qtukey</code></li>
+<li><code>dmultinom</code> &amp; <code>rmultinom</code></li>
+</ul>
+<h3 id="Examining-the-distribution-of-a-set-of-data"><a href="#Examining-the-distribution-of-a-set-of-data" class="headerlink" title="Examining the distribution of a set of data"></a>Examining the distribution of a set of data</h3><p><code>summary</code> &amp; <code>fivenum</code> &amp; <code>stem</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># examine the numbers</span></span><br><span class="line"><span class="keyword">attach</span>(faithful)</span><br><span class="line">summary(eruptions)</span><br><span class="line">fivenum(eruptions)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make steam-and-leaf plot and histogram</span></span><br><span class="line">stem(eruptions)</span><br><span class="line">hist(eruptions)</span><br><span class="line"></span><br><span class="line"><span class="comment"># make the bins smaller, make a plot of density</span></span><br><span class="line">hist(eruptions, seq(<span class="number">1.6</span>, <span class="number">5.2</span>, <span class="number">0.2</span>), prob=<span class="literal">TRUE</span>)</span><br><span class="line">lines(density(eruptions, bw=<span class="number">0.1</span>))</span><br><span class="line">rug(eruptions) <span class="comment"># show the actual data points</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plot the empirical cumulative distribution function</span></span><br><span class="line">plot(ecdf(eruptions), do.points=<span class="literal">FALSE</span>, verticals=<span class="literal">TRUE</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># eruptions of longer than 3min, fix a normal distribution</span></span><br><span class="line">lnog &lt;- eruptions[eruptions &gt; <span class="number">3</span>]</span><br><span class="line">plot(ecdf(long), do.points=<span class="literal">FALSE</span>, verticals=<span class="literal">TRUE</span>)</span><br><span class="line">x &lt;- seq(<span class="number">3</span>, <span class="number">5.4</span>, <span class="number">0.01</span>)</span><br><span class="line">lines(x, pnorm(x, mean=mean(long), sd=sqrt(var(long))), lty=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Quantile-quantile plots</span></span><br><span class="line">par(pty=<span class="string">"s"</span>)</span><br><span class="line">qqnorm(long)</span><br><span class="line">qqline(long)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Shapiro-Wilk test</span></span><br><span class="line">shapiro.test(long)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Kolmogorov-Smirnov test</span></span><br><span class="line">ks.test(long, <span class="string">"pnorm"</span>, mean=mean(long), sd=sqrt(var(long)))</span><br></pre></td></tr></table></figure>
+<h3 id="One-and-two-sample-tests"><a href="#One-and-two-sample-tests" class="headerlink" title="One- and two-sample tests"></a>One- and two-sample tests</h3><p>All “classical” tests are in package <strong>stats</strong> which is normally loaded.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">A &lt;- scan()</span><br><span class="line">79.98 80.04 80.02 80.04 80.03 80.03 80.04 79.97 80.05 80.03 80.02 80.00 80.02</span><br><span class="line">B &lt;- scan()</span><br><span class="line">80.02 79.94 79.98 79.97 79.97 80.03 79.95 79.97</span><br><span class="line">boxplot(A, B)</span><br><span class="line"></span><br><span class="line">t.test(A, B)</span><br><span class="line"></span><br><span class="line">var.test(A, B)</span><br><span class="line">t.test(A, B, var.equal=TRUE)</span><br><span class="line"></span><br><span class="line">wilcox.test(A, B)</span><br><span class="line"></span><br><span class="line">ks.test(A, B)</span><br></pre></td></tr></table></figure>
+<h2 id="9-Grouping-loops-and-conditional-execution"><a href="#9-Grouping-loops-and-conditional-execution" class="headerlink" title="9 Grouping, loops and conditional execution"></a>9 Grouping, loops and conditional execution</h2><h3 id="Grouped-expressions"><a href="#Grouped-expressions" class="headerlink" title="Grouped expressions"></a>Grouped expressions</h3><p>Commands may be grouped together in braces, <code>{expr_1; ...; expr_m}</code>, in which case the value of the group is the result of the last expression.</p>
+<h3 id="Control-statement"><a href="#Control-statement" class="headerlink" title="Control statement"></a>Control statement</h3><h4 id="Conditional-execution-if-statements"><a href="#Conditional-execution-if-statements" class="headerlink" title="Conditional execution: if statements"></a>Conditional execution: <code>if</code> statements</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr_1 must evaluate to single logical value</span></span><br><span class="line"><span class="keyword">if</span> (&lt;expr_1&gt;) expr_2 <span class="keyword">else</span> expr_3</span><br></pre></td></tr></table></figure>
+<p> <code>&amp;&amp;</code> and <code>||</code> are “short-circuit” operators, whereas <code>&amp;</code> and <code>|</code> apply element-wise to vectors, <code>&amp;&amp;</code> and <code>||</code> apply to cetors of length one.</p>
+<p>Vectorized version of <code>if</code>: <code>ifelse(condition, a, b)</code> returns a vectorof the same length as condition, with elements a[i] if conditions[i] is true.</p>
+<h4 id="Repetitive-execution-for-loops-repeat-and-while"><a href="#Repetitive-execution-for-loops-repeat-and-while" class="headerlink" title="Repetitive execution: for loops, repeat and while"></a>Repetitive execution: <code>for</code> loops, <code>repeat</code> and <code>while</code></h4><ul>
+<li><p><code>for</code></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># `expr_1` is a vector expression</span></span><br><span class="line"><span class="keyword">for</span> (name <span class="keyword">in</span> expr_1) expr_2</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>split()</code></li>
+</ul>
+</li>
+<li><code>repeat expr</code></li>
+<li><code>while (condition) expr</code></li>
+<li><code>break</code>: terminate any loop. The only way to terminate <code>repeat</code> loopes.</li>
+<li><code>next</code></li>
+</ul>
+<h2 id="10-Writing-your-own-functions"><a href="#10-Writing-your-own-functions" class="headerlink" title="10 Writing your own functions"></a>10 Writing your own functions</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># caculate two samples t test</span></span><br><span class="line">add &lt;- <span class="keyword">function</span>(X, y = <span class="number">0</span>) &#123;</span><br><span class="line">  X + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">add(X=<span class="number">1</span>, y=<span class="number">2</span>)</span><br><span class="line">add(X=<span class="number">1</span>)</span><br><span class="line">add(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># define a new binary operator</span></span><br><span class="line">%+% &lt;- <span class="keyword">function</span>(X, y) &#123;</span><br><span class="line">  add(X, y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="arg"><a href="#arg" class="headerlink" title="... arg"></a><code>...</code> arg</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun1 &lt;- <span class="keyword">function</span>(data, <span class="keyword">...</span>) &#123;</span><br><span class="line">  <span class="comment"># pass settings to another function</span></span><br><span class="line">  par(<span class="keyword">...</span>)</span><br><span class="line">  <span class="comment"># '..n' returning the n'th unmatched argument</span></span><br><span class="line">  par(..1)</span><br><span class="line">  <span class="comment"># evaluates all such arguments and returns them in a named list</span></span><br><span class="line">  list(<span class="keyword">...</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Assignments-within-functions"><a href="#Assignments-within-functions" class="headerlink" title="Assignments within functions"></a>Assignments within functions</h3><p>Any ordinary assignments done within the function are local and temporary and are lost after exit from the function.</p>
+<ul>
+<li>evaluation <em>frame</em></li>
+<li>global assignments with superassignment operator: <code>&lt;&lt;-</code> or <code>assign</code></li>
+</ul>
+<h3 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h3><p>Thef symbold which occur in the body of the function can be divides into:</p>
+<ul>
+<li>formal parameters: occurring in the arg list, their values are determined by <em>binding</em> the actual function arguments to the formal parameters.</li>
+<li>local variables: whose values are determined by the evaluation of expressoins in the body of the function.</li>
+<li>free variables: not formal or local variables. Free variables become local variables if they are assigned to.</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f &lt;- <span class="keyword">function</span>(x) &#123;</span><br><span class="line">  y &lt;- <span class="number">2</span>*x</span><br><span class="line">  print(x) <span class="comment"># formal parameter</span></span><br><span class="line">  print(y) <span class="comment"># local variable</span></span><br><span class="line">  print(z) <span class="comment"># free variable</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The free variable bindings are resolve in which the function was created, this is called <em>lexical scope</em>.</p>
+<p><code>&lt;&lt;-</code> can change the value of free variables.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">open.account &lt;- <span class="keyword">function</span>(total) &#123;</span><br><span class="line">  list(</span><br><span class="line">    deposit = <span class="keyword">function</span>(amount) &#123;</span><br><span class="line">      total &lt;&lt;- total + amount</span><br><span class="line">      cat(amount, <span class="string">"deposited."</span>)</span><br><span class="line">   &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Customizing-the-environment"><a href="#Customizing-the-environment" class="headerlink" title="Customizing the environment"></a>Customizing the environment</h3><p>Env profiles:</p>
+<ul>
+<li>Rprofile.site: in<strong>etc</strong>, or <strong>R_PROFILE</strong></li>
+<li>.Rprofile: in work dir or home dir, or <strong>R_PROFILE_USER</strong></li>
+</ul>
+<p>Any function named <code>.First()</code> in either of the profiles or in the <em>.RData</em> image is automatically performed at the begginning of an session.</p>
+<p><code>.Last()</code> executed at the end of session.</p>
+<h3 id="Classes-generic-functions-and-object-orientation"><a href="#Classes-generic-functions-and-object-orientation" class="headerlink" title="Classes, generic functions and object orientation"></a>Classes, generic functions and object orientation</h3><p>The class of an object determines behavior with <em>generic functions</em>.</p>
+<ul>
+<li><code>class</code> attribute</li>
+<li><code>methods(class=&quot;data.frame&quot;)</code></li>
+<li><code>methods(plot)</code></li>
+</ul>
+<p><code>UseMethod</code> indicates this is a generic function.</p>
+<h2 id="11-Statistical-models-in-R"><a href="#11-Statistical-models-in-R" class="headerlink" title="11 Statistical models in R"></a>11 Statistical models in R</h2><p>The <code>~</code> operator is used to define a <em>model formula</em>. The form for an ordinary linear model is:<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response ~ op_1 term_1 op_2 term_2 <span class="keyword">...</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><em>response</em>: a vector or matrix defining the response variable(s)</li>
+<li><em>op_i</em>: an operator, either <code>+</code> or <code>-</code>, implying the inclusion or exclusion of a term.</li>
+<li><em>term_i</em>: is either:<ul>
+<li>a vector or matrix expression, or 1</li>
+<li>a factor</li>
+<li>a formula expression consisting of factors, vectors or matrices connected by formula operators</li>
+</ul>
+</li>
+</ul>
+<p>The modal formulae specify the <em>columns</em> of the model matrix.</p>
+<h3 id="Notations"><a href="#Notations" class="headerlink" title="Notations"></a>Notations</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Y ~ M <span class="comment"># Y is modeled as M</span></span><br><span class="line">M_1 + M_2 <span class="comment"># Include M_1 and M_2</span></span><br><span class="line">M_1 - M_2 <span class="comment"># include M_1 leaving out terms of M_2</span></span><br><span class="line">M_1 : M_2 <span class="comment"># the tensor product of M_1 and M_2. If both terms are factors, then the "subclasses" factor</span></span><br><span class="line">M_1 %<span class="keyword">in</span>% M_2 <span class="comment"># Similar to :, but with a dirrerent coding</span></span><br><span class="line">M_1 * M_2 <span class="comment"># M_1 + M_2 + M_1:M_2</span></span><br><span class="line">M_1 / M_2 <span class="comment"># M_1 + M_2 %in% M_1</span></span><br><span class="line">M^n <span class="comment"># All term in M together with "interactions" up to order n</span></span><br><span class="line">I(M) <span class="comment"># Insulate M. Inside M all operators have their normal arithmetic meaning, and that term appears in the model matrix.</span></span><br></pre></td></tr></table></figure>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Simple linear regression model of y on x. The first has an implicit intercept term.</span></span><br><span class="line">y ~ x</span><br><span class="line">y ~ <span class="number">1</span> + x </span><br><span class="line"></span><br><span class="line"><span class="comment"># Simple linear regression of y on x through the origin</span></span><br><span class="line">y ~ <span class="number">0</span> + x</span><br><span class="line">y ~ -<span class="number">1</span> + x</span><br><span class="line">y ~ x - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Mutiple regression of the transformed variable</span></span><br><span class="line">log(y) ~ x1 + x2</span><br><span class="line"></span><br><span class="line"><span class="comment"># polynomial regression of y on x of degree 2</span></span><br><span class="line">y ~ poly(x,<span class="number">2</span>)</span><br><span class="line">y ~ <span class="number">1</span> + x + I(X^<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Contrasts"><a href="#Contrasts" class="headerlink" title="Contrasts"></a>Contrasts</h3><h3 id="LInear-models"><a href="#LInear-models" class="headerlink" title="LInear models"></a>LInear models</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">fitted.model &lt;- lm(formula, data = data.frame)</span><br><span class="line"></span><br><span class="line"><span class="comment"># operates at the simplest level in a very similar way to lm(), aloows an analysis of models with multiple error strata</span></span><br><span class="line">aov(formula, data = data.frame)</span><br><span class="line"></span><br><span class="line"><span class="comment"># allows a model to be fitted that differs from one previously</span></span><br><span class="line">new.moddel &lt;- update(old.model, new.formula)</span><br><span class="line"></span><br><span class="line">fm05 &lt;- lm(y ~ x1 + x2 + x3 + x4 + x5, data=production)</span><br><span class="line"><span class="comment"># . can be used to stand for the corresponding part of the old model formula</span></span><br><span class="line">fm6 &lt;- update(fm05, . ~ . + x6)</span><br><span class="line">smf6 &lt;- update(fm6, sqrt(.) ~ .)</span><br><span class="line"></span><br><span class="line"><span class="comment"># . can also used in lm(), represent for all other variables in the data frame</span></span><br><span class="line">fmfull &lt;- lm(y ~ ., data = production)</span><br></pre></td></tr></table></figure>
+<h3 id="Generic-functions-for-extracting-model-info"><a href="#Generic-functions-for-extracting-model-info" class="headerlink" title="Generic functions for extracting model info"></a>Generic functions for extracting model info</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">anova(obj_1, obj_2)</span><br><span class="line">coef(obj) <span class="comment"># Extract the regression coefficient (matrix).</span></span><br><span class="line">deviance(obj)</span><br><span class="line">formula(obj)</span><br><span class="line">plot(obj)</span><br><span class="line">predict(obj, newdata=data.frame)</span><br><span class="line">print(obj)</span><br><span class="line">residuals(obj)</span><br><span class="line">step(obj)</span><br><span class="line">summary(obj)</span><br><span class="line">vcov(obj)</span><br></pre></td></tr></table></figure>
+<h2 id="12-Graphical-procedures"><a href="#12-Graphical-procedures" class="headerlink" title="12 Graphical procedures"></a>12 Graphical procedures</h2><h3 id="High-level-plotting-commands"><a href="#High-level-plotting-commands" class="headerlink" title="High-level plotting commands"></a>High-level plotting commands</h3><p>Designed to genrate a complete plot of the data, alwats start a new plot, erasing the current plot.</p>
+<h4 id="plot"><a href="#plot" class="headerlink" title="plot()"></a><code>plot()</code></h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># If x and y are vectors, produces a scatterplot</span></span><br><span class="line">plot(x, y)</span><br><span class="line">plot(xy) </span><br><span class="line"></span><br><span class="line"><span class="comment"># If x is a time series, produces a time-series plot. If x is a numeric vector, produces a plot of the calues in the vector against their index.</span></span><br><span class="line">plot(x)</span><br><span class="line"></span><br><span class="line"><span class="comment"># f is a factor object, y is a numeric vector. The first generates a bar plot of f; the second form produces boxplots of y for each level of f</span></span><br><span class="line">plot(f)</span><br><span class="line">plot(f, y)</span><br><span class="line"></span><br><span class="line">plot(df)</span><br><span class="line">plot(~ expr)</span><br><span class="line">plot(y ~ expr)</span><br></pre></td></tr></table></figure>
+<h4 id="Displaying-multivariate-data"><a href="#Displaying-multivariate-data" class="headerlink" title="Displaying multivariate data"></a>Displaying multivariate data</h4><ul>
+<li><code>pairs(X)</code></li>
+<li><code>coplot()</code></li>
+</ul>
+<h4 id="Display-graphics"><a href="#Display-graphics" class="headerlink" title="Display graphics"></a>Display graphics</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Distribution-comparison plots.</span></span><br><span class="line">qqnorm(x)</span><br><span class="line">qqline(x)</span><br><span class="line">qqplot(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Histogram</span></span><br><span class="line">hist(x)</span><br><span class="line">hist(, nclass=n)</span><br><span class="line">hist(x, breaks=b, <span class="keyword">...</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Dotchart</span></span><br><span class="line">dotchart(x, <span class="keyword">...</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plots of three variables</span></span><br><span class="line">image(x, y, z, <span class="keyword">...</span>)</span><br><span class="line">contour(x, y, z, <span class="keyword">...</span>)</span><br><span class="line">persp(x, y, z, <span class="keyword">...</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#### Arguments to high-level plotting functions</span></span><br><span class="line"></span><br><span class="line">```R</span><br><span class="line">add</span><br><span class="line">axes</span><br><span class="line">log</span><br><span class="line">type</span><br><span class="line">xlab</span><br><span class="line">ylab</span><br><span class="line">main</span><br></pre></td></tr></table></figure>
+<h3 id="Low-level-plotting-commands"><a href="#Low-level-plotting-commands" class="headerlink" title="Low-level plotting commands"></a>Low-level plotting commands</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">points(x, y)</span><br><span class="line">lines(x, y)</span><br><span class="line">text(x, y, labels, <span class="keyword">...</span>)</span><br><span class="line"></span><br><span class="line">abline(a, b)</span><br><span class="line">abline(h=y)</span><br><span class="line">abline(v=x)</span><br><span class="line">abline(lm.obj)</span><br><span class="line"></span><br><span class="line">polygon(x, y, <span class="keyword">...</span>)</span><br><span class="line"></span><br><span class="line">legend(x, y, legend)</span><br><span class="line"></span><br><span class="line">title(main, sub)</span><br><span class="line"></span><br><span class="line">axis(side, <span class="keyword">...</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="Mathematical-annotation"><a href="#Mathematical-annotation" class="headerlink" title="Mathematical annotation"></a>Mathematical annotation</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">help(plotmath)</span><br><span class="line">example(plotmath)</span><br><span class="line">demo(plotmath)</span><br></pre></td></tr></table></figure>
+<h3 id="Interacting-with-graphics"><a href="#Interacting-with-graphics" class="headerlink" title="Interacting with graphics"></a>Interacting with graphics</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">locator(n, type)</span><br><span class="line"></span><br><span class="line">identify(x, y, labels)</span><br></pre></td></tr></table></figure>
+<h3 id="Using-graphics-parameters"><a href="#Using-graphics-parameters" class="headerlink" title="Using graphics parameters"></a>Using graphics parameters</h3><h4 id="par"><a href="#par" class="headerlink" title="par()"></a><code>par()</code></h4><p>Used to access and modify the list of graphics parameters for the current graphics device.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">par() <span class="comment"># Return a list of all graphics paras.</span></span><br><span class="line">par(c(<span class="string">"col"</span>, <span class="string">"lty"</span>)) <span class="comment"># Returns only the named graphics parameters.</span></span><br><span class="line">par(col=<span class="number">4</span>, lty=<span class="number">2</span>) <span class="comment"># Sets the values of the named paras.</span></span><br></pre></td></tr></table></figure>
+<h3 id="Graphics-parameters-list"><a href="#Graphics-parameters-list" class="headerlink" title="Graphics parameters list"></a>Graphics parameters list</h3><h4 id="Graphical-elements"><a href="#Graphical-elements" class="headerlink" title="Graphical elements"></a>Graphical elements</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Character to be used for plotting points</span></span><br><span class="line">pch=<span class="string">"+"</span></span><br><span class="line">pch=<span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Line types</span></span><br><span class="line">lty=<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Line widths</span></span><br><span class="line">lwd=<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Colors</span></span><br><span class="line">col = <span class="number">2</span> <span class="comment"># see ?palette</span></span><br><span class="line">col.axis</span><br><span class="line">col.lab</span><br><span class="line">col.main</span><br><span class="line">col.sub</span><br><span class="line"></span><br><span class="line">font = <span class="number">2</span></span><br><span class="line">font.asix...</span><br><span class="line"></span><br><span class="line"><span class="comment"># Justification of text relative tot the plotting position.</span></span><br><span class="line">adj=-<span class="number">0.1</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># Character expansion</span></span><br><span class="line">cex=<span class="number">1.5</span></span><br><span class="line">cex.asix...</span><br></pre></td></tr></table></figure>
+<h4 id="Axes-and-tick-marks"><a href="#Axes-and-tick-marks" class="headerlink" title="Axes and tick marks"></a>Axes and tick marks</h4><p>Axes have three main components:</p>
+<ul>
+<li>axis line</li>
+<li>tick marks</li>
+<li>tick labels</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lab=c(<span class="number">5</span>,<span class="number">7</span>,<span class="number">12</span>) <span class="comment"># The desired number of tick intervals on the x and y axes and length of axis labels.</span></span><br><span class="line">las=<span class="number">1</span> <span class="comment"># Orientation of axis labels.</span></span><br><span class="line">mgp=c(<span class="number">3</span>,<span class="number">1</span>,<span class="number">0</span>) <span class="comment"># Positions of axis components.</span></span><br><span class="line">tck=<span class="number">0.01</span> <span class="comment"># Length of tick marks.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Axis styles for x and y axes, "i"(internal), "r"(default)</span></span><br><span class="line">xaxs=<span class="string">"r"</span></span><br><span class="line">yaxs=<span class="string">"i"</span></span><br></pre></td></tr></table></figure>
+<h4 id="Figure-margins"><a href="#Figure-margins" class="headerlink" title="Figure margins"></a>Figure margins</h4><p>A single plot is known as a <strong>figure</strong> and comprises a <em>plot region</em> surrounded by margins.</p>
+<p><img src="_v_images/_plotmargin_1530088595_399663081.png" alt="plot margin"></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mai=c(<span class="number">1</span>, <span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0</span>) <span class="comment"># Widths of the bottom, left, top, right margins</span></span><br><span class="line"></span><br><span class="line">mar <span class="comment"># Similar to mai, except the measurement unit is text lines</span></span><br></pre></td></tr></table></figure>
+<h4 id="Multiple-figure-environment"><a href="#Multiple-figure-environment" class="headerlink" title="Multiple figure environment"></a>Multiple figure environment</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set the size of a multiple figure array</span></span><br><span class="line">mfcol=c(<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line">mfrow=c(<span class="number">2</span>,<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Position of the current figure</span></span><br><span class="line">mfg=c(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Position of the current figure on the page</span></span><br><span class="line">fig=c(<span class="number">4</span>,<span class="number">9</span>,<span class="number">1</span>,<span class="number">4</span>)/<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Size of outer margins</span></span><br><span class="line">oma</span><br><span class="line">omi</span><br></pre></td></tr></table></figure>
+<h3 id="Device-drivers"><a href="#Device-drivers" class="headerlink" title="Device drivers"></a>Device drivers</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">X11() <span class="comment"># For unix</span></span><br><span class="line">windows()</span><br><span class="line">quartz() <span class="comment"># For mac</span></span><br><span class="line">postscript()</span><br><span class="line">pdf()</span><br><span class="line">png()</span><br><span class="line">jpeg()</span><br><span class="line"></span><br><span class="line">dev.off()</span><br></pre></td></tr></table></figure>
+<h4 id="Multiple-graphics-devices"><a href="#Multiple-graphics-devices" class="headerlink" title="Multiple graphics devices"></a>Multiple graphics devices</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">quartz()</span><br><span class="line">pdf()</span><br><span class="line"><span class="comment"># Each new call to a device driver function opens a new graphics device</span></span><br><span class="line"></span><br><span class="line">dev.list()</span><br><span class="line">dev.next()</span><br><span class="line">dev.prev()</span><br><span class="line">dev.set(which=k)</span><br><span class="line">dev.off(k)</span><br></pre></td></tr></table></figure>
+<h2 id="13-Packages"><a href="#13-Packages" class="headerlink" title="13 Packages"></a>13 Packages</h2><ul>
+<li><code>library()</code>: see which packages are installed.</li>
+<li><code>library(name)</code>: load package.</li>
+<li><code>install/update.packages()</code></li>
+<li><code>search()</code>: see which packages are currently loaded.</li>
+<li><code>loadedNamespaces()</code>: display packages may be loaded but not available on the search list</li>
+</ul>
+<h3 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h3><p>Packages have <em>naespaces</em>:</p>
+<ul>
+<li>allow to hide functions and data that are meant only for internal use.</li>
+<li>prevent functions from name clashes.</li>
+<li>provide a way to refer to an object within a particular package.</li>
+</ul>
+<p><code>t()</code> is the same as <code>base::t()</code></p>
+<p><code>:::</code> allows access to hidden obejcts. Users are more likely to use <code>getAnywhere()</code>.</p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-06-27</span><i class="fa fa-comment-o"></i><a href="/en/2018/06/27/a-introduction-to-r-reading-notes/#comments">Comments</a><i class="fa fa-tag"></i><a class="tag" href="/tags/notes/" title="notes">notes </a><a class="tag" href="/tags/r/" title="R">R </a><a class="tag" href="/tags/r-lang/" title="R lang">R lang </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,https://mondogao.github.io/en/2018/06/27/a-introduction-to-r-reading-notes/,麦冬,A Introduction to R Reading Notes,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a class="btn" role="navigation" href="/en/2018/06/18/haskell-wiki-reading-notes-2/" title="Haskell Wiki Reading Notes 2 - Elementary">next_post</a></li></ul></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'mondogao';
+var disqus_identifier = 'en/2018/06/27/a-introduction-to-r-reading-notes/';
+var disqus_title = 'A Introduction to R Reading Notes';
+var disqus_url = 'https://mondogao.github.io/en/2018/06/27/a-introduction-to-r-reading-notes/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
